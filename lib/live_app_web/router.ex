@@ -25,6 +25,9 @@ defmodule LiveAppWeb.Router do
 
     live("/posts/:id", PostLive.Show, :show)
     live("/posts/:id/show/edit", PostLive.Show, :edit)
+
+    live("/sf", SfLive.Index)
+    live("/sf/tour", SfLive.Tour)
   end
 
   # Other scopes may use custom stacks.

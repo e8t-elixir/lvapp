@@ -1,0 +1,5 @@
+<div>
+<p>Click <strong>{{@count}}</strong> time(s)</p>
+<Button label="Inc" click="inc" />
+<Button label="Clear" kind="is-danger" click="clear" />
+</div>
