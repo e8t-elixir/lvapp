@@ -1,0 +1,49 @@
+<%# <h1>Listing Posts</h1> %>
+
+<h1>- TimeLine -</h1>
+
+<%= if @live_action in [:new, :edit] do %>
+  <%= live_modal @socket, LiveAppWeb.PostLive.FormComponent,
+    id: @post.id || :new,
+    title: @page_title,
+    action: @live_action,
+    post: @post,
+    return_to: Routes.post_index_path(@socket, :index) %>
+<% end %>
+
+<div id="posts" phx-update="prepend">
+  <%= for post <- @posts do %>
+    <%= live_component @socket, LiveAppWeb.PostLive.PostComponent, id: post.id, post: post %>
+  <% end %>
+</div>
+
+<%# <table> %>
+<%#   <thead> %>
+<%#     <tr> %>
+<%#       <th>Username</th> %>
+<%#       <th>Body</th> %>
+<%#       <th>Likes count</th> %>
+<%#       <th>Reposts count</th> %>
+
+<%#       <th></th> %>
+<%#     </tr> %>
+<%#   </thead> %>
+<%#   <tbody id="posts"> %>
+<%#     <%= for post <- @posts do %1> %>
+<%#       <tr id="post-<%= post.id %1>"> %>
+<%#         <td><%= post.username %1></td> %>
+<%#         <td><%= post.body %1></td> %>
+<%#         <td><%= post.likes_count %1></td> %>
+<%#         <td><%= post.reposts_count %1></td> %>
+
+<%#         <td> %>
+          <%# <span><%= live_redirect "Show", to: Routes.post_show_path(@socket, :show, post) %1></span> %>
+          <%# <span><%= live_patch "Edit", to: Routes.post_index_path(@socket, :edit, post) %1></span> %>
+<%#           <span><%= link "Delete", to: "#", phx_click: "delete", phx_value_id: post.id, data: [confirm: "Are you sure?"] %1></span> %>
+<%#         </td> %>
+<%#       </tr> %>
+<%#     <% end %1> %>
+<%#   </tbody> %>
+<%# </table> %>
+
+<span><%= live_patch "New Post", to: Routes.post_index_path(@socket, :new) %></span>
