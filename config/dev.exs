@@ -61,7 +61,8 @@ config :live_app, LiveAppWeb.Endpoint,
       ~r"priv/static/.*(js|css|png|jpeg|jpg|gif|svg)$",
       ~r"priv/gettext/.*(po)$",
       ~r"lib/live_app_web/(live|views)/.*(ex)$",
-      ~r"lib/live_app_web/templates/.*(eex)$"
+      ~r"lib/live_app_web/templates/.*(eex)$",
+      ~r"lib/my_app_web/live/.*(sface|sf)$"
     ]
   ]
 
