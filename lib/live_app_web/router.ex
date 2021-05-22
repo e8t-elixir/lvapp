@@ -17,6 +17,8 @@ defmodule LiveAppWeb.Router do
   scope "/", LiveAppWeb do
     pipe_through(:browser)
 
+    get "/news", NewsController, :index
+
     live("/", PageLive, :index)
 
     live("/posts", PostLive.Index, :index)
