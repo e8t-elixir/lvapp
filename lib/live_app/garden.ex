@@ -17,8 +17,10 @@ defmodule LiveApp.Garden do
       [%Book{}, ...]
 
   """
-  def list_books do
-    Repo.all(Book)
+  def list_books(params) do
+    # Repo.all(Book)
+    Book
+    |> Repo.paginate(params)
   end
 
   @doc """

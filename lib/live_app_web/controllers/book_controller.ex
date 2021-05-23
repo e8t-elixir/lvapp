@@ -4,9 +4,10 @@ defmodule LiveAppWeb.BookController do
   alias LiveApp.Garden
   alias LiveApp.Garden.Book
 
-  def index(conn, _params) do
-    books = Garden.list_books()
-    render(conn, "index.html", books: books)
+  def index(conn, params) do
+    # books = Garden.list_books(params)
+    page = Garden.list_books(params)
+    render(conn, "index.html", books: page.entries, page: page)
   end
 
   def new(conn, _params) do

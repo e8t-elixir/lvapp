@@ -33,6 +33,8 @@ defmodule LiveApp.MixProject do
   # Type `mix help deps` for examples and options.
   defp deps do
     [
+      # 不兼容 phx 1.5.9
+      # {:scrivener_html, "~> 1.8", override: true},
       {:scrivener_ecto, "~> 2.0"},
       {:pow, "~> 1.0.0"},
       {:distillery, "~> 2.1"},

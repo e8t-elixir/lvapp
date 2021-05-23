@@ -1,5 +1,18 @@
 <h1>Listing Books</h1>
 
+<span>
+  <%= link "Prev Page",
+  class: "button",
+disabled: @page.page_number<2,
+to: Routes.book_path(@conn, :index, page: @page.page_number - 1) %>
+</span>
+<span>
+  <%= link "Next Page",
+  class: "button",
+disabled: @page.page_number >= @page.total_pages,
+to: Routes.book_path(@conn, :index, page: @page.page_number + 1)%>
+
+</span>
 <table>
   <thead>
     <tr>
