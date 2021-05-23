@@ -33,6 +33,8 @@ defmodule LiveApp.MixProject do
   # Type `mix help deps` for examples and options.
   defp deps do
     [
+      {:bcrypt_elixir, "~> 2.0"},
+      {:phx_gen_auth, "~> 0.4.0", only: [:dev], runtime: false},
       {:distillery, "~> 2.1"},
       {:surface, "~> 0.4.0"},
       {:phoenix, "~> 1.5.9"},
