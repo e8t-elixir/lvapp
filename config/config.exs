@@ -7,6 +7,8 @@
 # General application configuration
 use Mix.Config
 
+app = :live_app
+
 config :live_app,
   ecto_repos: [LiveApp.Repo]
 
@@ -25,6 +27,19 @@ config :logger, :console,
 
 # Use Jason for JSON parsing in Phoenix
 config :phoenix, :json_library, Jason
+
+# Pow 
+
+config app, :pow,
+  user: LiveApp.Users.User,
+  repo: LiveApp.Repo,
+  web_module: LiveAppWeb,
+  # add cookie session
+  extensions: [PowPersistentSession, PowResetPassword, PowEmailConfirmation],
+  controller_callbacks: Pow.Extension.Phoenix.ControllerCallbacks,
+  mailer_backend: LiveAppWeb.Pow.Mailer,
+  routes_backend: LiveAppWeb.Pow.Routes,
+  messages_backend: LiveAppWeb.Pow.Messages
 
 # Import environment specific config. This must remain at the bottom
 # of this file so it overrides the configuration defined above.

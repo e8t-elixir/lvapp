@@ -1,5 +1,7 @@
 defmodule LiveAppWeb.Router do
   use LiveAppWeb, :router
+  use Pow.Phoenix.Router
+  use Pow.Extension.Phoenix.Router, otp_app: :live_app
 
   pipeline :browser do
     plug(:accepts, ["html"])
@@ -12,6 +14,19 @@ defmodule LiveAppWeb.Router do
 
   pipeline :api do
     plug(:accepts, ["json"])
+  end
+
+  pipeline :pow_protected do
+    plug Pow.Plug.RequireAuthenticated,
+      error_handler: Pow.Phoenix.PlugErrorHandler
+  end
+
+  scope "/" do
+    pipe_through :browser
+
+    # Pow.Phoenix.Router
+    pow_routes()
+    pow_extension_routes()
   end
 
   scope "/", LiveAppWeb do
@@ -30,6 +45,13 @@ defmodule LiveAppWeb.Router do
 
     live("/sf", SfLive.Index)
     live("/sf/tour", SfLive.Tour)
+  end
+
+  scope "/garden", LiveAppWeb do
+    pipe_through [:browser, :pow_protected]
+
+    # resources: get post delete put
+    resources "/books", BookController
   end
 
   # Other scopes may use custom stacks.

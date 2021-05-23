@@ -1,7 +1,6 @@
 <!DOCTYPE html>
 <html lang="en">
-  <head>
-    <meta charset="utf-8"/>
+  <head> <meta charset="utf-8"/>
     <meta http-equiv="X-UA-Compatible" content="IE=edge"/>
     <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
     <%= csrf_meta_tag() %>
@@ -14,15 +13,25 @@
       <section class="container">
         <nav role="navigation">
           <ul>
-            <li><a href="https://hexdocs.pm/phoenix/overview.html">Get Started</a></li>
+            <%# <li><a href="https://hexdocs.pm/phoenix/overview.html">Get Started</a></li> %>
             <%= if function_exported?(Routes, :live_dashboard_path, 2) do %>
-              <li><%= link "LiveDashboard", to: Routes.live_dashboard_path(@conn, :home) %></li>
+              <li><%= link "LiveDash", to: Routes.live_dashboard_path(@conn, :home) %></li>
             <% end %>
+            <%# pow_route %>
+    <%= if @current_user do %>
+      <li>Signed in as: <%= @current_user.email %></li>
+      <li><%= link "Sign out", to: Routes.pow_session_path(@conn, :delete), method: :delete %></li>
+      <li><%= link "Edit account", to: Routes.pow_registration_path(@conn, :edit) %></li>
+    <% else %>
+      <li><%= link "Sign in", to: Routes.pow_session_path(@conn, :new) %></li>
+      <li><%= link "Sign up", to: Routes.pow_registration_path(@conn, :new) %></li>
+    <% end %>
+    <li><%=  link "Books", to: Routes.book_path(@conn, :index) %></li>
           </ul>
         </nav>
-        <%# <a href="https://phoenixframework.org/" class="phx-logo"> %>
-        <%#   <img src="<%= Routes.static_path(@conn, "/images/phoenix.png") %1>" alt="Phoenix Framework Logo"/> %>
-        <%# </a> %>
+        <a href="https://phoenixframework.org/" class="phx-logo">
+          <img src="<%= Routes.static_path(@conn, "/images/phoenix.png") %>" alt="Phoenix Framework Logo"/>
+        </a>
       </section>
     </header>
     <%= @inner_content %>

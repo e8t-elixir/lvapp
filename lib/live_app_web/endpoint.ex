@@ -50,5 +50,10 @@ defmodule LiveAppWeb.Endpoint do
   plug Plug.MethodOverride
   plug Plug.Head
   plug Plug.Session, @session_options
+
+  # Pow session
+  plug Pow.Plug.Session, otp_app: :live_app
+  plug PowPersistentSession.Plug.Cookie
+
   plug LiveAppWeb.Router
 end

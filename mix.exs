@@ -33,6 +33,8 @@ defmodule LiveApp.MixProject do
   # Type `mix help deps` for examples and options.
   defp deps do
     [
+      {:scrivener_ecto, "~> 2.0"},
+      {:pow, "~> 1.0.0"},
       {:distillery, "~> 2.1"},
       {:surface, "~> 0.4.0"},
       {:phoenix, "~> 1.5.9"},
