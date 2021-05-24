@@ -15,6 +15,10 @@
   <%= password_input f, :password, required: true %>
   <%= error_tag f, :password %>
 
+  <%= label f, :password_confirm, "Confirm password" %>
+  <%= password_input f, :password_confirm, required: true %>
+  <%= error_tag f, :password_confirm %>
+
   <div>
     <%= submit "Register" %>
   </div>

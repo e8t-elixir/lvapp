@@ -3,7 +3,7 @@ defmodule LiveApp.PGA.User do
   import Ecto.Changeset
 
   @derive {Inspect, except: [:password]}
-  schema "users" do
+  schema "pga_users" do
     field :email, :string
     field :password, :string, virtual: true
     field :hashed_password, :string
@@ -23,6 +23,7 @@ defmodule LiveApp.PGA.User do
   def registration_changeset(user, attrs) do
     user
     |> cast(attrs, [:email, :password])
+    |> validate_confirmation(:password, message: "password not match")
     |> validate_email()
     |> validate_password()
   end
@@ -113,4 +114,9 @@ defmodule LiveApp.PGA.User do
       add_error(changeset, :current_password, "is not valid")
     end
   end
+
+  @doc """
+  returns true if the user has confirmed their account
+  """
+  def is_confirmed?(user), do: user.confirmed_at != nil
 end

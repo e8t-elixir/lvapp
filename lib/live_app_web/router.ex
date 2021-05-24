@@ -6,6 +6,7 @@ defmodule LiveAppWeb.Router do
   pipeline :browser do
     plug(:accepts, ["html"])
     plug(:fetch_session)
+    plug(:fetch_current_user)
     plug(:fetch_live_flash)
     plug(:put_root_layout, {LiveAppWeb.LayoutView, :root})
     plug(:protect_from_forgery)
@@ -55,9 +56,22 @@ defmodule LiveAppWeb.Router do
     end
   end
 
+  scope "/pga", LiveAppWeb do
+    pipe_through [:browser]
+
+    live("/", PageLive, :index)
+    get "/dashboard", PGA.DashboardController, :index
+  end
+
   ## Authentication routes
 
-  scope "/", LiveAppWeb do
+  scope "/pga", LiveAppWeb.PGA do
+    pipe_through [:browser, :require_authenticated_user]
+
+    get "/dashboard/ui", DashboardController, :dashboard
+  end
+
+  scope "/pga", LiveAppWeb do
     pipe_through [:browser, :redirect_if_user_is_authenticated]
 
     get "/users/register", UserRegistrationController, :new
@@ -70,7 +84,7 @@ defmodule LiveAppWeb.Router do
     put "/users/reset_password/:token", UserResetPasswordController, :update
   end
 
-  scope "/", LiveAppWeb do
+  scope "/pga", LiveAppWeb do
     pipe_through [:browser, :require_authenticated_user]
 
     get "/users/settings", UserSettingsController, :edit
@@ -79,7 +93,7 @@ defmodule LiveAppWeb.Router do
     get "/users/settings/confirm_email/:token", UserSettingsController, :confirm_email
   end
 
-  scope "/", LiveAppWeb do
+  scope "/pga", LiveAppWeb do
     pipe_through [:browser]
 
     delete "/users/log_out", UserSessionController, :delete

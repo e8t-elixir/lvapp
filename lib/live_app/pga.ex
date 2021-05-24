@@ -40,7 +40,12 @@ defmodule LiveApp.PGA do
   def get_user_by_email_and_password(email, password)
       when is_binary(email) and is_binary(password) do
     user = Repo.get_by(User, email: email)
-    if User.valid_password?(user, password), do: user
+    # if User.valid_password?(user, password) && is_confirmed?(user), do: user
+    cond do
+      !User.valid_password?(user, password) -> {:error, :bad_username_or_password}
+      !User.is_confirmed?(user) -> {:error, :not_confirmed}
+      true -> {:ok, user}
+    end
   end
 
   @doc """
@@ -346,4 +351,9 @@ defmodule LiveApp.PGA do
       {:error, :user, changeset, _} -> {:error, changeset}
     end
   end
+
+  @doc """
+  returns true if the user has confirmed their account
+  """
+  def is_confirmed?(user), do: user.confirmed_at != nil
 end

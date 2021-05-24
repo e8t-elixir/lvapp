@@ -1,0 +1,4 @@
+<section class='phx-hero'>
+  <h1>Index Public</h1>
+  <p><%= link "Dashboard", to: Routes.dashboard_path(@conn, :dashboard) %></p>
+</section>

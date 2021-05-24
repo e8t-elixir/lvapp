@@ -18,6 +18,7 @@ config :live_app, LiveApp.Repo,
   url: "${DATABASE_URL}",
   # Works around a bug in older versions of ecto. Doesn't hurt for other versions.
   database: "",
+  # PG_SSL=false for local db test
   ssl: String.to_atom(System.get_env("PG_SSL") || "true"),
   # ssl: true,
   # Free tier db only allows 4 connections. Rolling deploys need pool_size*(n+1) connections where n is the number of app replicas.

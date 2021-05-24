@@ -3,7 +3,7 @@ defmodule LiveAppWeb.UserRegistrationController do
 
   alias LiveApp.PGA
   alias LiveApp.PGA.User
-  alias LiveAppWeb.UserAuth
+  # alias LiveAppWeb.UserAuth
 
   def new(conn, _params) do
     changeset = PGA.change_user_registration(%User{})
@@ -21,7 +21,9 @@ defmodule LiveAppWeb.UserRegistrationController do
 
         conn
         |> put_flash(:info, "User created successfully.")
-        |> UserAuth.log_in_user(user)
+        # |> UserAuth.log_in_user(user)
+        # is user confirmed?
+        |> redirect(to: Routes.user_session_path(conn, :new))
 
       {:error, %Ecto.Changeset{} = changeset} ->
         render(conn, "new.html", changeset: changeset)
