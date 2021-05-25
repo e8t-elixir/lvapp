@@ -75,3 +75,6 @@ config :phoenix, :stacktrace_depth, 20
 
 # Initialize plugs at runtime for faster development compilation
 config :phoenix, :plug_init_mode, :runtime
+
+# local: show in html
+config :live_app, LiveApp.Mailer, adapter: Bamboo.LocalAdapter

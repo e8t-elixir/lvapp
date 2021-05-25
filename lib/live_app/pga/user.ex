@@ -8,6 +8,7 @@ defmodule LiveApp.PGA.User do
     field :password, :string, virtual: true
     field :hashed_password, :string
     field :confirmed_at, :naive_datetime
+    field(:is_blocked, :boolean, default: false)
 
     timestamps()
   end
@@ -40,7 +41,8 @@ defmodule LiveApp.PGA.User do
   defp validate_password(changeset) do
     changeset
     |> validate_required([:password])
-    |> validate_length(:password, min: 12, max: 80)
+    |> validate_length(:password, min: 6, max: 32)
+    # |> validate_length(:password, min: 12, max: 80)
     # |> validate_format(:password, ~r/[a-z]/, message: "at least one lower case character")
     # |> validate_format(:password, ~r/[A-Z]/, message: "at least one upper case character")
     # |> validate_format(:password, ~r/[!?@#$%^&*_0-9]/, message: "at least one digit or punctuation character")
@@ -119,4 +121,17 @@ defmodule LiveApp.PGA.User do
   returns true if the user has confirmed their account
   """
   def is_confirmed?(user), do: user.confirmed_at != nil
+
+  @doc """
+  returns true if the user has confirmed their account
+  """
+  def is_blocked?(user), do: user.is_blocked
+
+  @doc """
+  user changeset for blocking / unblocking a user
+  """
+  def block_user_changeset(user, should_block?) do
+    user
+    |> cast(%{is_blocked: should_block?}, [:is_blocked])
+  end
 end

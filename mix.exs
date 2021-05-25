@@ -33,6 +33,7 @@ defmodule LiveApp.MixProject do
   # Type `mix help deps` for examples and options.
   defp deps do
     [
+      {:bamboo, "~> 1.5"},
       {:bcrypt_elixir, "~> 2.0"},
       {:phx_gen_auth, "~> 0.4.0", only: [:dev], runtime: false},
       {:distillery, "~> 2.1"},

@@ -29,6 +29,9 @@ defmodule LiveAppWeb.UserSessionController do
           error_message:
             "Please confirm your email before login. An email confirmation link has been sent to you."
         )
+
+      {:error, :user_blocked} ->
+        render_new_error(conn, "Your account has been blocked")
     end
 
     # if user = PGA.get_user_by_email_and_password(email, password) do
@@ -42,4 +45,6 @@ defmodule LiveAppWeb.UserSessionController do
     |> put_flash(:info, "Logged out successfully.")
     |> UserAuth.log_out_user()
   end
+
+  defp render_new_error(conn, message), do: render(conn, "new.html", error_message: message)
 end

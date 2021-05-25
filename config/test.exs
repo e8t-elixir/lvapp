@@ -24,4 +24,7 @@ config :live_app, LiveAppWeb.Endpoint,
 # Print only warnings and errors during test
 config :logger, level: :warn
 
+# TestAdapter
+config :live_app, LiveApp.Mailer, adapter: Bamboo.TestAdapter
+
 import_config("./test.db.exs")
